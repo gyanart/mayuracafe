@@ -436,3 +436,38 @@ h1 em, h2 em { color: #f2a900; }
  .menu-detail-grid { grid-template-columns: 1fr; }
  .menu-detail-card img { height: 210px; }
 }
+
+
+/* Homepage hero uses the uploaded Mayura Cafe exterior photo */
+.hero.hero-photo-background {
+  min-height: 650px;
+  background-color: #151714;
+  background-image:
+    linear-gradient(90deg, rgba(10, 14, 17, .86) 0%, rgba(10, 14, 17, .67) 43%, rgba(10, 14, 17, .22) 100%),
+    linear-gradient(0deg, rgba(10, 14, 17, .36), rgba(10, 14, 17, .08)),
+    url("../img/Modern%20Cafe%CC%81%20Facade%20with%20Kannada%20Signage.png");
+  background-position: center 48%;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.hero-photo-background .hero-grid {
+  min-height: 590px;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: center;
+}
+.hero-photo-background .hero-copy { max-width: 700px; padding-block: 28px; }
+.hero-photo-background .hero-copy h1 { color: #fff8ec; text-shadow: 0 2px 18px rgba(0,0,0,.25); }
+.hero-photo-background .hero-copy h1 em { color: #ffc247; }
+.hero-photo-background .hero-intro { color: #f0e9dc; max-width: 580px; }
+.hero-photo-background .eyebrow { color: #ffd166; }
+.hero-photo-background .hero-meta strong { color: #fff8ec; }
+.hero-photo-background .hero-meta small { color: #e1d8c9; }
+.hero-photo-background .meta-divider { background: rgba(255,255,255,.4); }
+.hero-photo-background .button-light { background: rgba(20,20,18,.3); border-color: rgba(255,255,255,.55); }
+.hero-photo-background .hero-bottom-line { border-color: rgba(255,255,255,.18); color: #f0e9dc; }
+@media (max-width: 720px) {
+  .hero.hero-photo-background { min-height: auto; background-position: 54% center; }
+  .hero-photo-background .hero-grid { min-height: 590px; padding-block: 54px 42px; }
+  .hero-photo-background .hero-copy { padding-block: 12px; }
+  .hero-photo-background .hero-intro { font-size: 14px; }
+}

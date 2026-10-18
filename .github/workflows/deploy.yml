@@ -1,3 +1,4 @@
+# Trigger deployment after correcting the FTP account directory mapping.
 name: Deploy Mayura Cafe to mayuracafe.gyanart.com
 
 on:

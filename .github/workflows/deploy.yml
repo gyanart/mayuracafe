@@ -48,7 +48,7 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           port: ${{ secrets.FTP_PORT }}
           protocol: ftps
-          server-dir: /public_html/mayuracafe/
+          server-dir: /mayuracafe/
           local-dir: ./site/
           exclude: |
             **/.github/**

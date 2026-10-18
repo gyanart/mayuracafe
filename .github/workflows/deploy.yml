@@ -1,0 +1,45 @@
+
+name: Deploy Mayura Cafe to mayuracafe.gyanart.com
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: mayura-cafe-deployment
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Validate website files
+        run: |
+          test -f index.html || {
+            echo "index.html not found in repository root"
+            exit 1
+          }
+
+      - name: Deploy to cPanel
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          port: ${{ secrets.FTP_PORT }}
+          protocol: ftps
+          server-dir: /public_html/mayuracafe/
+          local-dir: ./
+          exclude: |
+            **/.git*
+            **/.github/**
+            **/README.md

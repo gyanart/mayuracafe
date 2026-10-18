@@ -35,8 +35,12 @@ jobs:
             echo "site/assets/js/main.js not found"
             exit 1
           }
+          test -f site/assets/img/favicon.svg || {
+            echo "site/assets/img/favicon.svg not found"
+            exit 1
+          }
 
-      - name: Deploy clean website folder to cPanel
+      - name: Deploy website files to cPanel
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.FTP_SERVER }}
@@ -46,8 +50,7 @@ jobs:
           protocol: ftps
           server-dir: /public_html/mayuracafe/
           local-dir: ./site/
-          dangerous-clean-slate: true
           exclude: |
-            **/.git/**
             **/.github/**
             **/README.md
+            **/.DS_Store

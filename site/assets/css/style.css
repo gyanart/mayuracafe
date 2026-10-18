@@ -471,3 +471,29 @@ h1 em, h2 em { color: #f2a900; }
   .hero-photo-background .hero-copy { padding-block: 12px; }
   .hero-photo-background .hero-intro { font-size: 14px; }
 }
+
+/* Keep the dosa hero visual alongside the cafe exterior background */
+.hero-photo-background .hero-grid {
+  grid-template-columns: minmax(0, 1fr) minmax(0, .8fr);
+  gap: 24px;
+}
+.hero-photo-background .hero-copy { max-width: 660px; }
+.hero-photo-background .hero-art { min-height: 380px; }
+.hero-photo-background .hero-photo {
+  width: 80%;
+  max-width: 400px;
+  aspect-ratio: 4 / 4.2;
+  object-fit: cover;
+  border-radius: 50% 50% 46% 46%;
+  border: 6px solid #f2a900;
+  box-shadow: 0 24px 55px rgba(0,0,0,.4);
+}
+.hero-photo-background .hero-art::before { width: 75%; height: 75%; border-color: rgba(255,209,102,.5); }
+.hero-photo-background .hero-art::after { border-color: rgba(255,209,102,.4); }
+@media (max-width: 720px) {
+  .hero-photo-background .hero-grid { grid-template-columns: 1fr; gap: 8px; }
+  .hero-photo-background .hero-art { min-height: 310px; }
+  .hero-photo-background .hero-photo { width: 80%; max-width: 300px; }
+  .hero-photo-background .art-label.label-top { left: 4%; }
+  .hero-photo-background .art-label.label-bottom { right: 2%; }
+}

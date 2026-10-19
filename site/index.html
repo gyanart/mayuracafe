@@ -32,6 +32,37 @@
 .food-card img{height:clamp(142px,13.5vw,184px);aspect-ratio:unset}
 @media(max-width:630px){.food-card img{height:155px}}
 
+
+/* VISIT SECTION — smoothly blend the real storefront into the forest-green panel.
+   Applied in CSS only; the original photograph stays untouched. */
+.visit-visual::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(to top, rgba(6, 32, 22, .78) 0%, rgba(6, 32, 22, 0) 21%),
+    linear-gradient(to right,
+      #09291f 0%,
+      rgba(9, 41, 31, .97) 7%,
+      rgba(9, 41, 31, .79) 23%,
+      rgba(9, 41, 31, .36) 46%,
+      rgba(9, 41, 31, 0) 76%);
+}
+.visit-photo-note { z-index: 2; }
+@media (max-width: 630px) {
+  /* On stacked mobile layout, feather from the green information block downward. */
+  .visit-visual::after {
+    background:
+      linear-gradient(to top, rgba(6, 32, 22, .72) 0%, transparent 24%),
+      linear-gradient(to bottom,
+        #09291f 0%,
+        rgba(9, 41, 31, .88) 9%,
+        rgba(9, 41, 31, .42) 32%,
+        transparent 67%);
+  }
+}
 </style>
   
   

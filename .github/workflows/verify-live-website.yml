@@ -46,4 +46,8 @@ jobs:
             echo "::error::Correct Get Directions URL is not in the live response"
             exit 1
           }
-          echo "Success: live HTTPS response includes V2.1 identity, hours and Directions destination"
+          grep -Fq ".visit-visual::after {" "$output" || {
+            echo "::error::New blended storefront gradient not found in the live homepage"
+            exit 1
+          }
+          echo "Success: live HTTPS response includes V2.1 identity, hours and Directions destination and storefront fade"

@@ -1,0 +1,49 @@
+name: Verify Mayura live website
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  live-smoke-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check public DNS resolution
+        shell: bash
+        run: |
+          echo "Resolving mayuracafe.gyanart.com"
+          if getent ahostsv4 mayuracafe.gyanart.com; then
+            echo "DNS hostname resolved"
+          else
+            echo "::warning::The subdomain did not resolve from the GitHub Actions runner"
+          fi
+
+      - name: Fetch website over HTTPS and verify V2.1 content
+        shell: bash
+        run: |
+          set -euo pipefail
+          url="https://mayuracafe.gyanart.com/"
+          output="$RUNNER_TEMP/mayura-live.html"
+          echo "Checking $url"
+          curl -fSL --connect-timeout 12 --max-time 50 --retry 2 --retry-delay 3 \
+            -w 'HTTP status: %{http_code}; final URL: %{url_effective}; remote IP: %{remote_ip}; TLS verify result: %{ssl_verify_result}\n' \
+            --output "$output" "$url"
+          echo "Downloaded $(wc -c < "$output") bytes"
+          grep -Fq "Mayura Cafe and Food Court" "$output" || {
+            echo "::error::Restaurant identity marker not found in live response"
+            exit 1
+          }
+          grep -Fq "7:30 AM" "$output" || {
+            echo "::error::Confirmed operating hours not found; older homepage may be served"
+            exit 1
+          }
+          grep -Fq "https://maps.app.goo.gl/mbjmqLDb7YmWp7bW9" "$output" || {
+            echo "::error::Correct Get Directions URL is not in the live response"
+            exit 1
+          }
+          echo "Success: live HTTPS response includes V2.1 identity, hours and Directions destination"
